@@ -7,7 +7,8 @@ import { ConnectedRouter } from 'connected-react-router';
 // import { lightTheme, darkTheme } from './@utils/theme';
 // import { GlobalStyle } from './@utils/global';
 import { AppContainer } from './#';
-import { history, store, persistor } from './configureStore';
+// import { history, store, persistor } from './configureStore';
+import { store } from './configureStore';
 
 import * as serviceWorker from './serviceWorker';
 // All styles
@@ -23,11 +24,12 @@ const rootEl = document.getElementById('root');
 render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={<LoadingPage />} persistor={persistor}>
+      {/* <PersistGate loading={<LoadingPage />} persistor={persistor}>
         <ConnectedRouter history={history}>
           <AppContainer />
         </ConnectedRouter>
-      </PersistGate>
+      </PersistGate> */}
+      <AppContainer />
     </Provider>
   </React.StrictMode>,
   rootEl,
