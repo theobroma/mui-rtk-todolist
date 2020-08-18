@@ -14,7 +14,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { rootReducer } from './@store/index';
+// import { rootReducer } from './@store/index';
 import { TodoListType, TodoType } from './@types';
 
 export const history = createBrowserHistory();
@@ -94,7 +94,7 @@ const todosSlice = createSlice({
 //   },
 // });
 
-const reducer = combineReducers({
+const rootReducer = combineReducers({
   todos: todosSlice.reducer,
   // selectedTodo: selectedTodoSlice.reducer,
   // counter: counterSlice.reducer,
@@ -104,11 +104,24 @@ const logger = createLogger({
   collapsed: true,
 });
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  // blacklist: ['router'], // will not be persisted
+  whitelist: ['todos'], // will be persisted
+};
+
+// Middleware: Redux Persist Persisted Reducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const middleware = [...getDefaultMiddleware(), logger];
 export const store = configureStore({
-  reducer,
+  reducer: persistedReducer,
   middleware,
 });
+
+export const persistor = persistStore(store);
+export default { store, persistor };
 
 // const configureStore = () => {
 //   const persistConfig = {

@@ -8,7 +8,7 @@ import { ConnectedRouter } from 'connected-react-router';
 // import { GlobalStyle } from './@utils/global';
 import { AppContainer } from './#';
 // import { history, store, persistor } from './configureStore';
-import { store } from './configureStore';
+import { store, persistor } from './configureStore';
 
 import * as serviceWorker from './serviceWorker';
 // All styles
@@ -29,7 +29,10 @@ render(
           <AppContainer />
         </ConnectedRouter>
       </PersistGate> */}
-      <AppContainer />
+
+      <PersistGate loading={<LoadingPage />} persistor={persistor}>
+        <AppContainer />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   rootEl,
