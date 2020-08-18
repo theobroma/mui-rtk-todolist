@@ -7,13 +7,22 @@ import {
 } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { createBrowserHistory } from 'history';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+// import { createStore, applyMiddleware } from 'redux';
+// import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { persistStore, persistReducer } from 'redux-persist';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { routerMiddleware } from 'connected-react-router';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { routerMiddleware } from 'connected-react-router';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 // import { rootReducer } from './@store/index';
 import { TodoListType, TodoType } from './@types';
 
@@ -114,10 +123,22 @@ const persistConfig = {
 // Middleware: Redux Persist Persisted Reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middleware = [...getDefaultMiddleware(), logger];
+// const middleware = [...getDefaultMiddleware(), logger];
+// https://github.com/rt2zz/redux-persist/issues/988#issuecomment-552242978
+const middleware = [
+  ...getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+  logger,
+];
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware,
+  // devTools: process.env.NODE_ENV === 'development',
+  devTools: true,
 });
 
 export const persistor = persistStore(store);
