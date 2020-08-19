@@ -95,6 +95,13 @@ const todosSlice = createSlice({
   },
 });
 
+export const {
+  create: createTodoActionCreator,
+  // edit: editTodoActionCreator,
+  // toggle: toggleTodoActionCreator,
+  // remove: deleteTodoActionCreator,
+} = todosSlice.actions;
+
 // const selectedTodoSlice = createSlice({
 //   name: 'selectedTodo',
 //   initialState: null as string | null,
