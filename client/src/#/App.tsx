@@ -2,12 +2,14 @@ import React from 'react';
 import Layout from '../@components/Layout';
 import { TodoListItem } from '../@components/TodoListItem';
 import { TodoList } from '../@components/TodoList';
+import { TodoForm } from '../@components/TodoForm';
 
 interface Props {}
 
 export const App = (props: Props) => {
   return (
     <Layout>
+      <TodoForm />
       {/* <AddTodo
         inputValue={inputValue}
         onInputChange={changeInput}
