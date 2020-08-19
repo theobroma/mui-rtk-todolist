@@ -1,5 +1,7 @@
 import React from 'react';
 import Layout from '../@components/Layout';
+import { TodoListItem } from '../@components/TodoListItem';
+import { TodoList } from '../@components/TodoList';
 
 interface Props {}
 
@@ -18,6 +20,10 @@ export const App = (props: Props) => {
         onItemRemove={idx => removeTodo(idx)}
       /> */}
       layout
+      <TodoList />
+      {/* <TodoListItem text="111" />
+      <TodoListItem text="222" />
+      <TodoListItem text="333" /> */}
     </Layout>
   );
 };
