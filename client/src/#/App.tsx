@@ -11,8 +11,11 @@ export const App: React.FC = () => {
   const { inputValue, changeInput, clearInput, keyInput } = useInputValue();
 
   const clearInputAndAddTodo = () => {
+    const trimmedText = inputValue.trim();
+    if (trimmedText.length > 0) {
+      dispatch(createTodoActionCreator({ text: trimmedText }));
+    }
     clearInput();
-    dispatch(createTodoActionCreator({ text: inputValue }));
   };
 
   return (

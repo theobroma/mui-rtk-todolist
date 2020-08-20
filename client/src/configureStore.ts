@@ -77,15 +77,17 @@ const todosSlice = createSlice({
     //     state[index].desc = payload.desc;
     //   }
     // },
-    // toggle: (
-    //   state,
-    //   { payload }: PayloadAction<{ id: string; isComplete: boolean }>,
-    // ) => {
-    //   const index = state.findIndex((todo) => todo.id === payload.id);
-    //   if (index !== -1) {
-    //     state[index].isComplete = payload.isComplete;
-    //   }
-    // },
+    toggle: (
+      state,
+      { payload }: PayloadAction<{ id: string; completed: boolean }>,
+    ) => {
+      const index = state.data.findIndex(
+        (todo: TodoType) => todo._id === payload.id,
+      );
+      if (index !== -1) {
+        state.data[index].completed = payload.completed;
+      }
+    },
     remove: (state, { payload }: PayloadAction<{ id: string }>) => {
       const index = state.data.findIndex((todo) => todo._id === payload.id);
       if (index !== -1) {
@@ -98,7 +100,7 @@ const todosSlice = createSlice({
 export const {
   create: createTodoActionCreator,
   // edit: editTodoActionCreator,
-  // toggle: toggleTodoActionCreator,
+  toggle: toggleTodoActionCreator,
   remove: deleteTodoActionCreator,
 } = todosSlice.actions;
 

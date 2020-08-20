@@ -11,7 +11,10 @@ import {
 import DeleteOutlined from '@material-ui/icons/DeleteOutlined';
 import { useDispatch } from 'react-redux';
 import { TodoType } from '../@types';
-import { deleteTodoActionCreator } from '../configureStore';
+import {
+  deleteTodoActionCreator,
+  toggleTodoActionCreator,
+} from '../configureStore';
 
 interface Props {
   todo: TodoType;
@@ -24,14 +27,15 @@ export const TodoListItem: React.FC<Props> = memo(
     const removeTodo = () => {
       dispatch(deleteTodoActionCreator({ id: todo._id }));
     };
+    const toggleTodo = () => {
+      dispatch(
+        toggleTodoActionCreator({ id: todo._id, completed: !todo.completed }),
+      );
+    };
 
     return (
       <ListItem divider={divider}>
-        {/* <Checkbox
-      onClick={props.onCheckBoxToggle}
-      checked={props.checked}
-      disableRipple
-    /> */}
+        <Checkbox onClick={toggleTodo} checked={todo.completed} disableRipple />
         <ListItemText primary={todo.text} />
         <ListItemSecondaryAction>
           <IconButton aria-label="Delete Todo" onClick={removeTodo}>
