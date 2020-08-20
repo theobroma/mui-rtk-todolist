@@ -11,7 +11,6 @@ const Layout = memo((props) => (
         <Typography color="inherit">TODO APP</Typography>
       </Toolbar>
     </AppBar>
-
     {props.children}
   </Paper>
 ));

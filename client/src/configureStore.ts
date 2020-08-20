@@ -86,12 +86,12 @@ const todosSlice = createSlice({
     //     state[index].isComplete = payload.isComplete;
     //   }
     // },
-    // remove: (state, { payload }: PayloadAction<{ id: string }>) => {
-    //   const index = state.findIndex((todo) => todo.id === payload.id);
-    //   if (index !== -1) {
-    //     state.splice(index, 1);
-    //   }
-    // },
+    remove: (state, { payload }: PayloadAction<{ id: string }>) => {
+      const index = state.data.findIndex((todo) => todo._id === payload.id);
+      if (index !== -1) {
+        state.data.splice(index, 1);
+      }
+    },
   },
 });
 
@@ -99,7 +99,7 @@ export const {
   create: createTodoActionCreator,
   // edit: editTodoActionCreator,
   // toggle: toggleTodoActionCreator,
-  // remove: deleteTodoActionCreator,
+  remove: deleteTodoActionCreator,
 } = todosSlice.actions;
 
 // const selectedTodoSlice = createSlice({

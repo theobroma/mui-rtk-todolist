@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import shortid from 'shortid';
 import { TodoListItem } from './TodoListItem';
 import { todosSelector } from '../@store/todos/selectors';
+import { TodoType } from '../@types';
 
 interface Props {}
 
@@ -14,10 +15,11 @@ export const TodoList: React.FC<Props> = memo((props) => {
       {todos.length > 0 && (
         <Paper style={{ margin: 16 }}>
           <List style={{ overflow: 'scroll' }}>
-            {todos.map((todo: any, idx: number) => (
+            {todos.map((todo: TodoType, idx: number) => (
               <TodoListItem
-                {...todo}
+                todo={todo}
                 key={shortid.generate()}
+                // no divider for last item
                 divider={idx !== todos.length - 1}
                 // onButtonClick={() => props.onItemRemove(idx)}
                 // onCheckBoxToggle={() => props.onItemCheck(idx)}
