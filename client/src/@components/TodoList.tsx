@@ -13,17 +13,38 @@ import { useSelector } from 'react-redux';
 import shortid from 'shortid';
 import { TodoListItem } from './TodoListItem';
 import { todosSelector } from '../@store/todos/selectors';
+import { filterSelector } from '../@store/filter/selectors';
 import { TodoType } from '../@types';
+import { pluralize } from '../@utils/pluralize';
 
-interface Props {}
-
-export const TodoList: React.FC<Props> = memo(() => {
+export const TodoList: React.FC = memo(() => {
   const { data: todos, editingTodoId } = useSelector(todosSelector);
+  const filter = useSelector(filterSelector);
+
+  const activeTodoCount = todos.reduce((accum: number, todo: TodoType) => {
+    return todo.completed ? accum : accum + 1;
+  }, 0);
+
+  const completedCount = todos.length - activeTodoCount;
+
+  const renderClearButton = () => {
+    if (completedCount > 0) {
+      return (
+        <Box p={1} bgcolor="grey.300">
+          <Button variant="contained" color="primary">
+            Clear completed
+          </Button>
+        </Box>
+      );
+    }
+    return null;
+  };
 
   const BoxBlock = (
     <Box display="flex" p={1} bgcolor="background.paper">
       <Box p={1} flexGrow={1} bgcolor="grey.300">
-        No items
+        <strong>{activeTodoCount}</strong> {pluralize(activeTodoCount, 'item')}{' '}
+        left
       </Box>
       <Box p={1} bgcolor="grey.300">
         <FilterListIcon />
@@ -45,11 +66,7 @@ export const TodoList: React.FC<Props> = memo(() => {
           <FormHelperText>Filter</FormHelperText>
         </FormControl>
       </Box>
-      <Box p={1} bgcolor="grey.300">
-        <Button variant="contained" color="primary">
-          Clear completed
-        </Button>
-      </Box>
+      {renderClearButton()}
     </Box>
   );
   return (
