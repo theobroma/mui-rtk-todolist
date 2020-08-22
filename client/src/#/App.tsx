@@ -4,7 +4,7 @@ import Layout from '../@components/Layout';
 import { TodoList } from '../@components/TodoList';
 import { TodoForm } from '../@components/TodoForm';
 import { useInputValue } from '../@hooks';
-import { createTodoActionCreator } from '../configureStore';
+import { createTodoActionCreator } from '../@store/todos/slice';
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();

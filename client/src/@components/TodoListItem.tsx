@@ -14,7 +14,7 @@ import { TodoType } from '../@types';
 import {
   deleteTodoActionCreator,
   toggleTodoActionCreator,
-} from '../configureStore';
+} from '../@store/todos/slice';
 
 interface Props {
   todo: TodoType;
