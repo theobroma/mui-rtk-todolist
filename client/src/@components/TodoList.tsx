@@ -9,15 +9,17 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import shortid from 'shortid';
 import { TodoListItem } from './TodoListItem';
 import { todosSelector } from '../@store/todos/selectors';
 import { filterSelector } from '../@store/filter/selectors';
 import { TodoType } from '../@types';
 import { pluralize } from '../@utils/pluralize';
+import { removeCompletedActionCreator } from '../@store/todos/slice';
 
 export const TodoList: React.FC = memo(() => {
+  const dispatch = useDispatch();
   const { data: todos, editingTodoId } = useSelector(todosSelector);
   const filter = useSelector(filterSelector);
 
@@ -28,10 +30,18 @@ export const TodoList: React.FC = memo(() => {
   const completedCount = todos.length - activeTodoCount;
 
   const renderClearButton = () => {
+    const handleButtonClick = () => {
+      dispatch(removeCompletedActionCreator('any'));
+    };
+
     if (completedCount > 0) {
       return (
         <Box p={1} bgcolor="grey.300">
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleButtonClick}
+          >
             Clear completed
           </Button>
         </Box>

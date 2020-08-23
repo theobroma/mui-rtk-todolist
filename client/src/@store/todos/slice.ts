@@ -68,6 +68,9 @@ export const todosSlice = createSlice({
         state.data.splice(index, 1);
       }
     },
+    removeCompleted: (state, action) => {
+      state.data = state.data.filter((todo: TodoType) => !todo.completed);
+    },
   },
 });
 
@@ -76,4 +79,5 @@ export const {
   // edit: editTodoActionCreator,
   toggle: toggleTodoActionCreator,
   remove: deleteTodoActionCreator,
+  removeCompleted: removeCompletedActionCreator,
 } = todosSlice.actions;
