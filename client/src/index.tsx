@@ -14,9 +14,13 @@ import * as serviceWorker from './serviceWorker';
 // All styles
 import './@assets/styles/index.scss';
 import LoadingPage from './@components/UI/LoadingPage';
+import { makeServer } from './server';
 // Open Source typefaces
 require('typeface-roboto');
 require('typeface-gothic-a1');
+
+// mirage dev server
+makeServer();
 
 // const currentTheme = store.getState().layout.theme;
 const rootEl = document.getElementById('root');

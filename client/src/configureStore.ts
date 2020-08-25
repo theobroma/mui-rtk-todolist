@@ -44,6 +44,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 // https://github.com/rt2zz/redux-persist/issues/988#issuecomment-552242978
 const middleware = [
   ...getDefaultMiddleware({
+    // immutableCheck: true,
+    // thunk: true,
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
