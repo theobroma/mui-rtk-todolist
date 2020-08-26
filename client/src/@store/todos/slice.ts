@@ -4,21 +4,21 @@ import { TodoListType, TodoType } from '../../@types';
 
 export const todosInitialState: TodoListType = {
   data: [
-    {
-      _id: uuidv4(),
-      text: 'Learn React',
-      completed: true,
-    },
-    {
-      _id: uuidv4(),
-      text: 'Learn Redux',
-      completed: true,
-    },
-    {
-      _id: uuidv4(),
-      text: 'Learn Redux-ToolKit',
-      completed: false,
-    },
+    // {
+    //   _id: uuidv4(),
+    //   text: 'Learn React',
+    //   completed: true,
+    // },
+    // {
+    //   _id: uuidv4(),
+    //   text: 'Learn Redux',
+    //   completed: true,
+    // },
+    // {
+    //   _id: uuidv4(),
+    //   text: 'Learn Redux-ToolKit',
+    //   completed: false,
+    // },
   ],
   editingTodoId: null,
   editingTodoTitle: '',
