@@ -14,6 +14,7 @@ test('correct todolist should be added', () => {
     ],
     editingTodoId: null,
     editingTodoTitle: '',
+    loading: false,
   };
 
   const newTodolistTitle = 'New Todolist';
@@ -35,6 +36,7 @@ test('todolist byId should be removed', () => {
     ],
     editingTodoId: null,
     editingTodoTitle: '',
+    loading: false,
   };
 
   const endState = todosReducer(
@@ -57,6 +59,7 @@ test('todolist byId should be toggled', () => {
     ],
     editingTodoId: null,
     editingTodoTitle: '',
+    loading: false,
   };
 
   const endState = todosReducer(

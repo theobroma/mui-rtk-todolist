@@ -22,12 +22,22 @@ export const todosInitialState: TodoListType = {
   ],
   editingTodoId: null,
   editingTodoTitle: '',
+  loading: false,
 };
 
 export const todosSlice = createSlice({
   name: 'todos',
   initialState: todosInitialState,
   reducers: {
+    toggleLoading(state) {
+      state.loading = !state.loading;
+    },
+    firstRender(state, action) {
+      // const { count, next, results } = action.payload;
+      const { todos } = action.payload;
+      state.data = todos;
+      toggleLoading();
+    },
     create: {
       reducer: (
         state,
@@ -71,6 +81,11 @@ export const todosSlice = createSlice({
     removeCompleted: (state, action) => {
       state.data = state.data.filter((todo: TodoType) => !todo.completed);
     },
+    // SOME SEARCH REDUCER SHOULD GO HERE
+    apiError(state, action) {
+      const { message } = action.payload;
+      alert(message);
+    },
   },
 });
 
@@ -80,4 +95,26 @@ export const {
   toggle: toggleTodoActionCreator,
   remove: deleteTodoActionCreator,
   removeCompleted: removeCompletedActionCreator,
+  toggleLoading,
+  firstRender,
+  apiError,
 } = todosSlice.actions;
+
+// API REQUEST ACTIONS HANDLED WITH REDUX-THUNK MIDDLEWARE BUILT INTO REDUX TOOLKIT -->
+
+/* **************THUNKS************** */
+
+export const getFirstRender = () => {
+  return async (dispatch: any) => {
+    dispatch(toggleLoading());
+    // redux-thunk
+    try {
+      const apiResponse = await fetch('/api/todos'); // fetches 20 pokemon names, nextFetchLink and totalPokemonInPokedex
+      const firstRenderData = await apiResponse.json();
+      dispatch(firstRender(firstRenderData));
+      // dispatch(getPokemonDetails(firstRenderData.results));
+    } catch (e) {
+      apiError(e.message);
+    }
+  };
+};

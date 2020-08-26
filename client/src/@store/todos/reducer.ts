@@ -18,6 +18,7 @@ export const todosInitialState: TodoListType = {
   data: [],
   editingTodoId: null,
   editingTodoTitle: '',
+  loading: false,
 };
 
 export type TodosStateType = typeof todosInitialState;

@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { App } from './App';
+import { getFirstRender } from '../@store/todos/slice';
 
 export const AppContainer: React.FC = () => {
-  const [hasError, setErrors] = useState(false);
-  const [todos, setTodos] = useState({});
-  console.log(todos);
-
-  async function fetchData() {
-    const res = await fetch('/api/todos');
-    res
-      .json()
-      .then((response: any) => setTodos(response))
-      .catch((err) => setErrors(err));
-  }
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetchData();
-  }, []);
+    dispatch(getFirstRender());
+  });
 
   return <App />;
 };

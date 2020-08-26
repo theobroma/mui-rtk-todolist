@@ -45,7 +45,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleware = [
   ...getDefaultMiddleware({
     // immutableCheck: true,
-    // thunk: true,
+    thunk: true,
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },

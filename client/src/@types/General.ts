@@ -8,6 +8,7 @@ export type TodoListType = {
   data: TodoType[];
   editingTodoId: string | null;
   editingTodoTitle: string | undefined;
+  loading: boolean;
 };
 
 export type FilterType = 'SHOW_ALL' | 'SHOW_ACTIVE' | 'SHOW_COMPLETED';
