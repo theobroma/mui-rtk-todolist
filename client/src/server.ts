@@ -28,9 +28,13 @@ export function makeServer({ environment = 'development' } = {}) {
       this.namespace = 'api';
       this.timing = 750;
 
-      this.get('/todos', (schema: any) => {
-        return schema.todos.all();
-      });
+      this.get(
+        '/todos',
+        (schema: any) => {
+          return schema.todos.all();
+        },
+        { timing: 1000 },
+      );
 
       this.patch('/todos/:id', (schema: any, request) => {
         const attrs = JSON.parse(request.requestBody).todo;

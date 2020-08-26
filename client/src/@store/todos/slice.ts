@@ -29,14 +29,13 @@ export const todosSlice = createSlice({
   name: 'todos',
   initialState: todosInitialState,
   reducers: {
-    toggleLoading(state) {
-      state.loading = !state.loading;
+    setLoading(state, action) {
+      state.loading = action.payload;
     },
     firstRender(state, action) {
       // const { count, next, results } = action.payload;
       const { todos } = action.payload;
       state.data = todos;
-      toggleLoading();
     },
     create: {
       reducer: (
@@ -95,7 +94,7 @@ export const {
   toggle: toggleTodoActionCreator,
   remove: deleteTodoActionCreator,
   removeCompleted: removeCompletedActionCreator,
-  toggleLoading,
+  setLoading,
   firstRender,
   apiError,
 } = todosSlice.actions;
@@ -106,12 +105,13 @@ export const {
 
 export const getFirstRender = () => {
   return async (dispatch: any) => {
-    dispatch(toggleLoading());
+    dispatch(setLoading(true));
     // redux-thunk
     try {
       const apiResponse = await fetch('/api/todos'); // fetches 20 pokemon names, nextFetchLink and totalPokemonInPokedex
       const firstRenderData = await apiResponse.json();
       dispatch(firstRender(firstRenderData));
+      dispatch(setLoading(false));
       // dispatch(getPokemonDetails(firstRenderData.results));
     } catch (e) {
       apiError(e.message);

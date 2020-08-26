@@ -1,13 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../@components/Layout';
 import { TodoList } from '../@components/TodoList';
 import { TodoForm } from '../@components/TodoForm';
 import { useInputValue } from '../@hooks';
 import { createTodoActionCreator } from '../@store/todos/slice';
+import LoadingPage from '../@components/UI/LoadingPage';
+import { todosSelector } from '../@store/todos/selectors';
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();
+  const { loading } = useSelector(todosSelector);
   const { inputValue, changeInput, clearInput, keyInput } = useInputValue();
 
   const clearInputAndAddTodo = () => {
@@ -28,7 +31,7 @@ export const App: React.FC = () => {
           keyInput(event, clearInputAndAddTodo)
         }
       />
-      <TodoList />
+      {loading ? <LoadingPage /> : <TodoList />}
     </Layout>
   );
 };
