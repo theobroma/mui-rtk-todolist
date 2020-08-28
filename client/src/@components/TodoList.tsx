@@ -12,7 +12,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import { useSelector, useDispatch } from 'react-redux';
 import shortid from 'shortid';
 import { TodoListItem } from './TodoListItem';
-import { todosSelector } from '../@store/todos/selectors';
+import { todosSelector, selectVisibleTodos } from '../@store/todos/selectors';
 import { filterSelector } from '../@store/filter/selectors';
 import { TodoType, VisibilityFilters, FilterType } from '../@types';
 import { pluralize } from '../@utils/pluralize';
@@ -21,7 +21,7 @@ import { setFilterActionCreator } from '../@store/filter/slice';
 
 export const TodoList: React.FC = memo(() => {
   const dispatch = useDispatch();
-  const { data: todos, editingTodoId } = useSelector(todosSelector);
+  const todos = useSelector(selectVisibleTodos);
   const filterValue = useSelector(filterSelector);
 
   const activeTodoCount = todos.reduce((accum: number, todo: TodoType) => {

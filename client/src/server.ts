@@ -14,14 +14,14 @@ export function makeServer({ environment = 'development' } = {}) {
           return `Todo ${i + 1}`;
         },
 
-        isDone: false,
+        completed: false,
       }),
     },
 
     seeds(server: any) {
-      server.create('todo', { text: 'Buy groceries', isDone: false });
-      server.create('todo', { text: 'Walk the dog', isDone: false });
-      server.create('todo', { text: 'Do laundry', isDone: false });
+      server.create('todo', { text: 'Buy groceries', completed: true });
+      server.create('todo', { text: 'Walk the dog', completed: false });
+      server.create('todo', { text: 'Do laundry', completed: false });
     },
 
     routes() {
