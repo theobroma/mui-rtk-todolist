@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, ChangeEvent } from 'react';
 import {
   List,
   Paper,
@@ -14,20 +14,25 @@ import shortid from 'shortid';
 import { TodoListItem } from './TodoListItem';
 import { todosSelector } from '../@store/todos/selectors';
 import { filterSelector } from '../@store/filter/selectors';
-import { TodoType } from '../@types';
+import { TodoType, VisibilityFilters, FilterType } from '../@types';
 import { pluralize } from '../@utils/pluralize';
 import { removeCompletedActionCreator } from '../@store/todos/slice';
+import { setFilterActionCreator } from '../@store/filter/slice';
 
 export const TodoList: React.FC = memo(() => {
   const dispatch = useDispatch();
   const { data: todos, editingTodoId } = useSelector(todosSelector);
-  const filter = useSelector(filterSelector);
+  const filterValue = useSelector(filterSelector);
 
   const activeTodoCount = todos.reduce((accum: number, todo: TodoType) => {
     return todo.completed ? accum : accum + 1;
   }, 0);
 
   const completedCount = todos.length - activeTodoCount;
+
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setFilterActionCreator(event.target.value as FilterType));
+  };
 
   const renderClearButton = () => {
     const handleButtonClick = () => {
@@ -61,17 +66,17 @@ export const TodoList: React.FC = memo(() => {
         <FormControl>
           <NativeSelect
             // className={classes.selectEmpty}
-            // value={state.age}
-            name="age"
-            // onChange={handleChange}
-            inputProps={{ 'aria-label': 'age' }}
+            value={filterValue}
+            name="filter"
+            onChange={handleSelectChange}
+            inputProps={{ 'aria-label': 'filter' }}
           >
             <option value="" disabled>
               Placeholder
             </option>
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
+            <option value={VisibilityFilters.SHOW_ALL}>All</option>
+            <option value={VisibilityFilters.SHOW_ACTIVE}>Active</option>
+            <option value={VisibilityFilters.SHOW_COMPLETED}>Completed</option>
           </NativeSelect>
           <FormHelperText>Filter</FormHelperText>
         </FormControl>
