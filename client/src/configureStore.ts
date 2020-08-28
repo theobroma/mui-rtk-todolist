@@ -3,7 +3,7 @@ import {
   configureStore,
   getDefaultMiddleware,
 } from '@reduxjs/toolkit';
-import { createBrowserHistory } from 'history';
+// import { createBrowserHistory } from 'history';
 import { createLogger } from 'redux-logger';
 import {
   persistStore,
@@ -16,15 +16,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { filterSlice } from './@store/filter/slice';
-import { todosSlice } from './@store/todos/slice';
-
-export const history = createBrowserHistory();
-
-const rootReducer = combineReducers({
-  todos: todosSlice.reducer,
-  filter: filterSlice.reducer,
-});
+import { rootReducer } from './@store/index';
+// export const history = createBrowserHistory();
 
 const logger = createLogger({
   collapsed: true,

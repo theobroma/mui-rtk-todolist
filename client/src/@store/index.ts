@@ -1,14 +1,10 @@
 import { combineReducers } from 'redux';
-import { History } from 'history';
-import { connectRouter } from 'connected-react-router';
-import { filterReducer } from './filter/reducer';
-import { todosReducer } from './todos/reducer';
+import { todosSlice } from './todos/slice';
+import { filterSlice } from './filter/slice';
 
-export const rootReducer = (history: History) =>
-  combineReducers({
-    todos: todosReducer,
-    filter: filterReducer,
-    router: connectRouter(history),
-  });
+export const rootReducer = combineReducers({
+  todos: todosSlice.reducer,
+  filter: filterSlice.reducer,
+});
 
 export type RootState = ReturnType<typeof rootReducer>;

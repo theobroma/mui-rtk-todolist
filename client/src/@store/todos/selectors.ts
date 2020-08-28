@@ -3,7 +3,7 @@ import { RootState } from '..';
 import { filterSelector } from '../filter/selectors';
 import { VisibilityFilters, TodoType } from '../../@types';
 
-export const todosSelector = (state: any) => {
+export const todosSelector = (state: RootState) => {
   return state.todos;
 };
 
@@ -14,9 +14,9 @@ export const selectVisibleTodos = createSelector(
       case VisibilityFilters.SHOW_ALL:
         return todos;
       case VisibilityFilters.SHOW_COMPLETED:
-        return todos.filter((todo: TodoType) => todo.completed);
+        return todos.data.filter((todo: TodoType) => todo.completed);
       case VisibilityFilters.SHOW_ACTIVE:
-        return todos.filter((todo: TodoType) => !todo.completed);
+        return todos.data.filter((todo: TodoType) => !todo.completed);
       default:
         throw new Error(`Unknown filter: ${filter}`);
     }

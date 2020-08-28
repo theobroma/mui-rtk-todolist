@@ -1,6 +1,5 @@
-import { FilterType } from '../../@types';
 import { RootState } from '..';
 
-export const filterSelector = (state: any) => {
+export const filterSelector = (state: RootState) => {
   return state.filter;
 };
