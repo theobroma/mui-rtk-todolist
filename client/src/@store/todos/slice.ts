@@ -138,3 +138,44 @@ export const removeTodoAsyncById = (id: any) => {
     }
   };
 };
+
+export const saveTodoAsync = (todo: TodoType) => {
+  return async (dispatch: any) => {
+    dispatch(setLoading(true));
+    // redux-thunk
+    try {
+      const apiResponse = await fetch(`/api/todos/${todo.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(todo),
+      });
+      const json = await apiResponse.json();
+      console.log(json);
+      // refetch
+      dispatch(getFirstRender());
+    } catch (e) {
+      apiError(e.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const createTodoAsync = (text: string) => {
+  return async (dispatch: any) => {
+    dispatch(setLoading(true));
+    // redux-thunk
+    try {
+      const apiResponse = await fetch('/api/todos', {
+        method: 'POST',
+        body: JSON.stringify(text),
+      });
+      const json = await apiResponse.json();
+      // refetch
+      dispatch(getFirstRender());
+    } catch (e) {
+      apiError(e.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};

@@ -12,6 +12,7 @@ import DeleteOutlined from '@material-ui/icons/DeleteOutlined';
 import { useDispatch } from 'react-redux';
 import { TodoType } from '../@types';
 import {
+  saveTodoAsync,
   deleteTodoActionCreator,
   toggleTodoActionCreator,
   removeTodoAsyncById,
@@ -30,9 +31,10 @@ export const TodoListItem: React.FC<Props> = memo(
       dispatch(removeTodoAsyncById(todo.id));
     };
     const toggleTodo = () => {
-      dispatch(
-        toggleTodoActionCreator({ id: todo.id, completed: !todo.completed }),
-      );
+      // dispatch(
+      //   toggleTodoActionCreator({ id: todo.id, completed: !todo.completed }),
+      // );
+      dispatch(saveTodoAsync({ ...todo, completed: !todo.completed }));
     };
 
     return (

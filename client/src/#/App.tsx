@@ -4,7 +4,10 @@ import Layout from '../@components/Layout';
 import { TodoList } from '../@components/TodoList';
 import { TodoForm } from '../@components/TodoForm';
 import { useInputValue } from '../@hooks';
-import { createTodoActionCreator } from '../@store/todos/slice';
+import {
+  createTodoActionCreator,
+  createTodoAsync,
+} from '../@store/todos/slice';
 import LoadingPage from '../@components/UI/LoadingPage';
 import { todosSelector } from '../@store/todos/selectors';
 
@@ -16,7 +19,8 @@ export const App: React.FC = () => {
   const clearInputAndAddTodo = () => {
     const trimmedText = inputValue.trim();
     if (trimmedText.length > 0) {
-      dispatch(createTodoActionCreator({ text: trimmedText }));
+      // dispatch(createTodoActionCreator({ text: trimmedText }));
+      dispatch(createTodoAsync(trimmedText));
     }
     clearInput();
   };

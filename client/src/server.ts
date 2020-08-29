@@ -8,15 +8,16 @@ export function makeServer({ environment = 'development' } = {}) {
       todo: Model,
     },
 
-    factories: {
-      todo: Factory.extend({
-        text(i: any) {
-          return `Todo ${i + 1}`;
-        },
+    // factories: {
+    //   todo: Factory.extend({
+    //     // text(i: any) {
+    //     //   console.log(i);
+    //     //   return `Todo ${i + 1}`;
+    //     // },
 
-        completed: false,
-      }),
-    },
+    //     completed: false,
+    //   }),
+    // },
 
     seeds(server: any) {
       server.create('todo', { text: 'Buy groceries 1', completed: true });
@@ -26,7 +27,7 @@ export function makeServer({ environment = 'development' } = {}) {
 
     routes() {
       this.namespace = 'api';
-      this.timing = 750;
+      this.timing = 500;
 
       this.get(
         '/todos',
@@ -45,15 +46,13 @@ export function makeServer({ environment = 'development' } = {}) {
       this.post(
         '/todos',
         (schema: any, request) => {
-          const attrs = JSON.parse(request.requestBody).todo;
-
+          const attrs = JSON.parse(request.requestBody).text;
           return schema.todos.create(attrs);
         },
-        { timing: 2000 },
+        { timing: 750 },
       );
 
       this.delete('/todos/:id', (schema: any, request) => {
-        console.log('DELETE on server');
         return schema.todos.find(request.params.id).destroy();
       });
     },
