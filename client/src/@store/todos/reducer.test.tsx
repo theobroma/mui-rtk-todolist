@@ -9,8 +9,8 @@ test('correct todolist should be added', () => {
 
   const startState: TodoListType = {
     data: [
-      { _id: todolistId1, text: 'What to learn', completed: false },
-      { _id: todolistId2, text: 'What to buy', completed: false },
+      { id: todolistId1, text: 'What to learn', completed: false },
+      { id: todolistId2, text: 'What to buy', completed: false },
     ],
     editingTodoId: null,
     editingTodoTitle: '',
@@ -31,8 +31,8 @@ test('todolist byId should be removed', () => {
 
   const startState: TodoListType = {
     data: [
-      { _id: todolistId1, text: 'What to learn', completed: false },
-      { _id: todolistId2, text: 'What to buy', completed: false },
+      { id: todolistId1, text: 'What to learn', completed: false },
+      { id: todolistId2, text: 'What to buy', completed: false },
     ],
     editingTodoId: null,
     editingTodoTitle: '',
@@ -45,7 +45,7 @@ test('todolist byId should be removed', () => {
   );
 
   expect(endState.data.length).toBe(1);
-  expect(endState.data[0]._id).toBe(todolistId2);
+  expect(endState.data[0].id).toBe(todolistId2);
 });
 
 test('todolist byId should be toggled', () => {
@@ -54,8 +54,8 @@ test('todolist byId should be toggled', () => {
 
   const startState: TodoListType = {
     data: [
-      { _id: todolistId1, text: 'What to learn', completed: false },
-      { _id: todolistId2, text: 'What to buy', completed: false },
+      { id: todolistId1, text: 'What to learn', completed: false },
+      { id: todolistId2, text: 'What to buy', completed: false },
     ],
     editingTodoId: null,
     editingTodoTitle: '',
@@ -66,6 +66,6 @@ test('todolist byId should be toggled', () => {
     startState,
     actions.handleTodoToggle(todolistId1),
   );
-  const bool = endState.data.find((t) => t._id === todolistId1)?.completed;
+  const bool = endState.data.find((t) => t.id === todolistId1)?.completed;
   expect(endState.data[0].completed).toBe(bool);
 });

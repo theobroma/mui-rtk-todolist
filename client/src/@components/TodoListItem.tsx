@@ -14,22 +14,24 @@ import { TodoType } from '../@types';
 import {
   deleteTodoActionCreator,
   toggleTodoActionCreator,
+  removeTodoAsyncById,
 } from '../@store/todos/slice';
 
 interface Props {
   todo: TodoType;
-  divider?: any;
+  divider: boolean;
 }
 
 export const TodoListItem: React.FC<Props> = memo(
   ({ divider = true, todo }) => {
     const dispatch = useDispatch();
     const removeTodo = () => {
-      dispatch(deleteTodoActionCreator({ id: todo._id }));
+      // dispatch(deleteTodoActionCreator({ id: todo.id }));
+      dispatch(removeTodoAsyncById(todo.id));
     };
     const toggleTodo = () => {
       dispatch(
-        toggleTodoActionCreator({ id: todo._id, completed: !todo.completed }),
+        toggleTodoActionCreator({ id: todo.id, completed: !todo.completed }),
       );
     };
 

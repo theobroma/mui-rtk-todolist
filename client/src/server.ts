@@ -19,9 +19,9 @@ export function makeServer({ environment = 'development' } = {}) {
     },
 
     seeds(server: any) {
-      server.create('todo', { text: 'Buy groceries', completed: true });
-      server.create('todo', { text: 'Walk the dog', completed: false });
-      server.create('todo', { text: 'Do laundry', completed: false });
+      server.create('todo', { text: 'Buy groceries 1', completed: true });
+      server.create('todo', { text: 'Walk the dog 2', completed: false });
+      server.create('todo', { text: 'Do laundry 3', completed: false });
     },
 
     routes() {
@@ -33,7 +33,7 @@ export function makeServer({ environment = 'development' } = {}) {
         (schema: any) => {
           return schema.todos.all();
         },
-        { timing: 1000 },
+        { timing: 500 },
       );
 
       this.patch('/todos/:id', (schema: any, request) => {
@@ -53,6 +53,7 @@ export function makeServer({ environment = 'development' } = {}) {
       );
 
       this.delete('/todos/:id', (schema: any, request) => {
+        console.log('DELETE on server');
         return schema.todos.find(request.params.id).destroy();
       });
     },

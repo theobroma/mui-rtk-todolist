@@ -5,17 +5,17 @@ import { TodoListType, TodoType } from '../../@types';
 export const todosInitialState: TodoListType = {
   data: [
     // {
-    //   _id: uuidv4(),
+    //   id: uuidv4(),
     //   text: 'Learn React',
     //   completed: true,
     // },
     // {
-    //   _id: uuidv4(),
+    //   id: uuidv4(),
     //   text: 'Learn Redux',
     //   completed: true,
     // },
     // {
-    //   _id: uuidv4(),
+    //   id: uuidv4(),
     //   text: 'Learn Redux-ToolKit',
     //   completed: false,
     // },
@@ -42,13 +42,13 @@ export const todosSlice = createSlice({
         state,
         {
           payload,
-        }: PayloadAction<{ _id: string; text: string; completed: boolean }>,
+        }: PayloadAction<{ id: string; text: string; completed: boolean }>,
       ) => {
         state.data.push(payload);
       },
       prepare: ({ text }: { text: string }) => ({
         payload: {
-          _id: uuidv4(),
+          id: uuidv4(),
           text,
           completed: false,
         },
@@ -65,14 +65,14 @@ export const todosSlice = createSlice({
       { payload }: PayloadAction<{ id: string; completed: boolean }>,
     ) => {
       const index = state.data.findIndex(
-        (todo: TodoType) => todo._id === payload.id,
+        (todo: TodoType) => todo.id === payload.id,
       );
       if (index !== -1) {
         state.data[index].completed = payload.completed;
       }
     },
     remove: (state, { payload }: PayloadAction<{ id: string }>) => {
-      const index = state.data.findIndex((todo) => todo._id === payload.id);
+      const index = state.data.findIndex((todo) => todo.id === payload.id);
       if (index !== -1) {
         state.data.splice(index, 1);
       }
@@ -108,13 +108,33 @@ export const getFirstRender = () => {
     dispatch(setLoading(true));
     // redux-thunk
     try {
-      const apiResponse = await fetch('/api/todos'); // fetches 20 pokemon names, nextFetchLink and totalPokemonInPokedex
+      const apiResponse = await fetch('/api/todos');
       const firstRenderData = await apiResponse.json();
       dispatch(firstRender(firstRenderData));
-      dispatch(setLoading(false));
-      // dispatch(getPokemonDetails(firstRenderData.results));
     } catch (e) {
       apiError(e.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const removeTodoAsyncById = (id: any) => {
+  return async (dispatch: any) => {
+    dispatch(setLoading(true));
+    // redux-thunk
+    try {
+      const apiResponse = await fetch(`/api/todos/${id}`, {
+        method: 'delete',
+      });
+      const json = await apiResponse.json();
+      console.log(json);
+      // refetch
+      dispatch(getFirstRender());
+    } catch (e) {
+      apiError(e.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 };

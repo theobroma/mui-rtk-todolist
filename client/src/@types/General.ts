@@ -1,5 +1,5 @@
 export interface TodoType {
-  _id: string;
+  id: string;
   text: string | undefined;
   completed: boolean;
 }

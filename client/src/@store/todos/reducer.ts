@@ -31,7 +31,7 @@ export const todosReducer = createReducer<TodosStateType, TodoActionType>(
         ...state,
         data: [
           {
-            _id: uuidv4(),
+            id: uuidv4(),
             text,
             completed: false,
           },
@@ -41,14 +41,14 @@ export const todosReducer = createReducer<TodosStateType, TodoActionType>(
     },
     [TOGGLE_TODO]: (state, { payload: id }) => {
       const data = state.data.map((todo) =>
-        todo._id === id ? { ...todo, completed: !todo.completed } : todo,
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
       );
       return { ...state, data };
     },
     [REMOVE_TODO]: (state, { payload: id }) => {
       return {
         ...state,
-        data: state.data.filter((todo) => todo._id !== id),
+        data: state.data.filter((todo) => todo.id !== id),
       };
     },
     [TOGGLE_ALL_TODO]: (state, { payload: bool }) => {
@@ -64,7 +64,7 @@ export const todosReducer = createReducer<TodosStateType, TodoActionType>(
       };
     },
     [EDIT_TODO]: (state, { payload: id }) => {
-      const title = state.data.find((t) => t._id === id)?.text;
+      const title = state.data.find((t) => t.id === id)?.text;
       return {
         ...state,
         editingTodoId: id,
@@ -87,7 +87,7 @@ export const todosReducer = createReducer<TodosStateType, TodoActionType>(
       return {
         ...state,
         data: state.data.map((todo) =>
-          todo._id === state.editingTodoId
+          todo.id === state.editingTodoId
             ? // transform the one with a matching id
               { ...todo, text: state.editingTodoTitle }
             : // otherwise return original todo
