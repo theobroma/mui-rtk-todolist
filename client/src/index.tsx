@@ -2,38 +2,24 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ConnectedRouter } from 'connected-react-router';
-// import { ThemeProvider } from 'styled-components';
-// import { lightTheme, darkTheme } from './@utils/theme';
-// import { GlobalStyle } from './@utils/global';
 import { AppContainer } from './#';
-// import { history, store, persistor } from './configureStore';
 import { store, persistor } from './configureStore';
+import { makeServer } from './server';
+import LoadingPage from './@components/UI/LoadingPage';
 
 import * as serviceWorker from './serviceWorker';
 // All styles
 import './@assets/styles/index.scss';
-import LoadingPage from './@components/UI/LoadingPage';
-import { makeServer } from './server';
 // Open Source typefaces
 require('typeface-roboto');
 require('typeface-gothic-a1');
-
 // mirage dev server
 makeServer();
-
-// const currentTheme = store.getState().layout.theme;
 const rootEl = document.getElementById('root');
 
 render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <PersistGate loading={<LoadingPage />} persistor={persistor}>
-        <ConnectedRouter history={history}>
-          <AppContainer />
-        </ConnectedRouter>
-      </PersistGate> */}
-
       <PersistGate loading={<LoadingPage />} persistor={persistor}>
         <AppContainer />
       </PersistGate>
