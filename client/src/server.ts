@@ -49,7 +49,7 @@ export function makeServer({ environment = 'development' } = {}) {
           const attrs = JSON.parse(request.requestBody).text;
           return schema.todos.create(attrs);
         },
-        { timing: 750 },
+        { timing: 500 },
       );
 
       this.delete('/todos/:id', (schema: any, request) => {

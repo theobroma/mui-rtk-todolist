@@ -1,20 +1,20 @@
 import React from 'react';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { CircularProgress, Grid, Box } from '@material-ui/core';
 
 export const LoadingPage: React.FC = () => {
   return (
-    <Container>
-      <Row>
-        <Col>
-          <div
-            className="d-flex justify-content-center align-items-center"
-            style={{ height: '100vh' }}
-          >
-            <Spinner animation="grow" variant="warning" />
-          </div>
-        </Col>
-      </Row>
-    </Container>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          style={{ height: '100vh' }}
+        >
+          <CircularProgress color="secondary" />
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 export default LoadingPage;
