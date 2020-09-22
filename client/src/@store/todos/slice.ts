@@ -34,8 +34,7 @@ export const todosSlice = createSlice({
     },
     firstRender(state, action) {
       // const { count, next, results } = action.payload;
-      const { todos } = action.payload;
-      state.data = todos;
+      state.data = action.payload;
     },
     create: {
       reducer: (
@@ -108,7 +107,7 @@ export const getFirstRender = () => {
     dispatch(setLoading(true));
     // redux-thunk
     try {
-      const apiResponse = await fetch('/api/todos');
+      const apiResponse = await fetch('http://localhost:5000/api/items');
       const firstRenderData = await apiResponse.json();
       dispatch(firstRender(firstRenderData));
     } catch (e) {

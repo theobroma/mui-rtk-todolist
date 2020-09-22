@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { AppContainer } from './#';
 import { store, persistor } from './configureStore';
-import { makeServer } from './server';
 import LoadingPage from './@components/UI/LoadingPage';
 
 import * as serviceWorker from './serviceWorker';
@@ -13,8 +12,7 @@ import './@assets/styles/index.scss';
 // Open Source typefaces
 require('typeface-roboto');
 require('typeface-gothic-a1');
-// mirage dev server
-makeServer();
+
 const rootEl = document.getElementById('root');
 
 render(
