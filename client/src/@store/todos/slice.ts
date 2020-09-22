@@ -123,7 +123,7 @@ export const removeTodoAsyncById = (id: any) => {
     dispatch(setLoading(true));
     // redux-thunk
     try {
-      const apiResponse = await fetch(`/api/todos/${id}`, {
+      const apiResponse = await fetch(`http://localhost:5000/api/items/${id}`, {
         method: 'delete',
       });
       const json = await apiResponse.json();
@@ -143,10 +143,17 @@ export const saveTodoAsync = (todo: TodoType) => {
     dispatch(setLoading(true));
     // redux-thunk
     try {
-      const apiResponse = await fetch(`/api/todos/${todo.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(todo),
-      });
+      const apiResponse = await fetch(
+        `http://localhost:5000/api/items/${todo.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(todo),
+        },
+      );
       const json = await apiResponse.json();
       console.log(json);
       // refetch
@@ -164,9 +171,13 @@ export const createTodoAsync = (text: string) => {
     dispatch(setLoading(true));
     // redux-thunk
     try {
-      const apiResponse = await fetch('/api/todos', {
+      const apiResponse = await fetch('http://localhost:5000/api/items', {
         method: 'POST',
-        body: JSON.stringify(text),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text, completed: false }),
       });
       const json = await apiResponse.json();
       // refetch
