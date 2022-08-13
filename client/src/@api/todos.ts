@@ -1,11 +1,12 @@
-import { instance, APIResponseType } from './index';
+import { todosAxiosInstance } from './index';
 import { TodoType } from '../@types';
 // import { UsersFilterType } from '../@types';
 
 export const TodosAPI = {
   getTodos: async () => {
     try {
-      const response = await instance.get<TodoType[]>('todos');
+      const response = await todosAxiosInstance.get<TodoType[]>('items');
+      // console.log(response.data);
       return response.data;
     } catch (e) {
       return e.message;

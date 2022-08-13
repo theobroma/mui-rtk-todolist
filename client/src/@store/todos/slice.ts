@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
+import { TodosAPI } from '../../@api/todos';
 import { TodoListType, TodoType } from '../../@types';
 
 export const todosInitialState: TodoListType = {
@@ -107,9 +108,18 @@ export const getFirstRender = () => {
     dispatch(setLoading(true));
     // redux-thunk
     try {
-      const apiResponse = await fetch('http://localhost:5000/api/items');
-      const firstRenderData = await apiResponse.json();
-      dispatch(firstRender(firstRenderData));
+      // const apiResponse = await fetch('http://localhost:5000/api/items');
+      // const firstRenderData = await apiResponse.json();
+      // dispatch(firstRender(firstRenderData));
+
+      const firstRenderData = await TodosAPI.getTodos();
+      dispatch(
+        firstRender([
+          { id: 1, text: 'awesome todo text', completed: null },
+          { id: 2, text: 'awesome todo text2', completed: null },
+          { id: 3, text: 'awesome todo text3', completed: null },
+        ]),
+      );
     } catch (e) {
       apiError(e.message);
     } finally {

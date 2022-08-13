@@ -1,37 +1,15 @@
 // apiKey is https://social-network.samuraijs.com/ access string
 import axios, { AxiosInstance } from 'axios';
 // import { UserType, PhotosType } from '../@types';
+export const API_URL = 'http://localhost:5000/api/';
+// export const API_KEY = process.env.REACT_APP_API_KEY;
 
-export const instance: AxiosInstance = axios.create({
-  baseURL: '/api/',
+export const API_KEY = 'ca03na188ame03u1d78620de67282882a84';
+
+export const todosAxiosInstance: AxiosInstance = axios.create({
+  baseURL: API_URL,
   // withCredentials: true,
-  // headers: {
-  //   'API-KEY': apiKey,
-  // },
+  headers: {
+    apiKey: API_KEY,
+  },
 });
-
-export enum ResultCodesEnum {
-  Success = 0,
-  Error = 1,
-}
-export enum ResultCodeForCapcthaEnum {
-  CaptchaIsRequired = 10,
-}
-
-export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
-  data: D;
-  messages: Array<string>;
-  resultCode: RC;
-};
-
-// export type GetItemsType = {
-//   items: Array<UserType>;
-//   totalCount: number;
-//   error: string | null;
-// };
-
-// export type PhotosDataType = {
-//   photos: PhotosType;
-// };
-
-// export type CaptchaType = string;
